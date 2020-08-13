@@ -27,6 +27,8 @@ O(n) time | O(n) space
 function hasBalancedBrackets (inputString) {
   const openingBrackets = '([{';
   const closingBrackets = ')]}';
+  
+  //This is a dictionary where we can associate an opening bracket to an appropriate closing one
   const matchingBrackets = {
   ')':'(',
   ']':'[',
@@ -54,20 +56,55 @@ function hasBalancedBrackets (inputString) {
       }
     }
   }
-  return stack.length === 0
+  return stack.length === 0 // if the brackets were balanced then we should not have any brackets in the array
+}
+```
+
+Here's a solution that extracts all the braces from the string into an array first. Still O(n) time.
+
+```js
+function hasBalancedBrackets (inputString) {
+  const bracketPairs = { //keeps track of the possible bracket pairings
+  '[' : ']',
+  '(' : ')',
+  '{' : '}'
+  };
+  
+  const bracketPattern = '[](){}';
+  
+  const inputBrackets = [];
+  for (let i = 0; i < inputString.length; i++) { //this pushes all the brackets in the string into this array
+   const char = inputString[i];
+   if (bracketPattern.includes(char)) inputBrackets.push(char);
+  }
+  
+  const brackets = [];
+  if (!inputString.length || !inputBrackets.length) {
+    return true; // empty input or no brackets i.e. 'balanced' (throwing an error is fine also)
+  }
+  inputBrackets.forEach(function (bracket) {
+    const lastBracket = brackets[brackets.length - 1];
+    if (bracketPairs[lastBracket] === bracket) { // the current bracket and the last bracket are a pair
+      brackets.pop(); // we found a pair so remove the opening bracket from the array and move on
+    } else {
+      brackets.push(bracket);
+    }
+  });
+  return brackets.length === 0; // if the brackets were balanced then we should not have any brackets in the array
 }
 ```
 
 Here's a solid solution with Regex:
 
 ```js
-const bracketPattern = /[[\](){}]/g;
-const bracketPairs = { //keeps track of the possible bracket pairings
+function hasBalancedBrackets (inputString) {
+  const bracketPattern = /[[\](){}]/g;
+  const bracketPairs = { //keeps track of the possible bracket pairings
   '[' : ']',
   '(' : ')',
   '{' : '}'
-};
-function hasBalancedBrackets (inputString) {
+  };
+  
   const inputBrackets = inputString.match(bracketPattern); // returns an array of all the brackets in the input
   const brackets = [];
   if (!inputString.length || !inputBrackets.length) {
