@@ -60,7 +60,7 @@ function hasBalancedBrackets (inputString) {
 }
 ```
 
-Here's a solution that extracts all the braces from the string into an array first. Still O(n) time.
+Here's a solution that extracts all the brackets from the string into an array first. Still O(n) time.
 
 ```js
 function hasBalancedBrackets (inputString) {
@@ -94,18 +94,21 @@ function hasBalancedBrackets (inputString) {
 }
 ```
 
-Here's a solid solution with Regex:
+Here's a solution that uses Regex to get all the brackets from the string into an array; still O(n) time!
+Note how similar this is to the above solution.
 
 ```js
 function hasBalancedBrackets (inputString) {
-  const bracketPattern = /[[\](){}]/g;
   const bracketPairs = { //keeps track of the possible bracket pairings
   '[' : ']',
   '(' : ')',
   '{' : '}'
   };
   
+  const bracketPattern = /[[\](){}]/g;
+  
   const inputBrackets = inputString.match(bracketPattern); // returns an array of all the brackets in the input
+  
   const brackets = [];
   if (!inputString.length || !inputBrackets.length) {
     return true; // empty input or no brackets i.e. 'balanced' (throwing an error is fine also)
