@@ -36,13 +36,17 @@ function hasBalancedBrackets (inputString) {
   const stack = [];
   
   for (const char of inputString) {
+  
     if (openingBrackets.includes(char)) {
       stack.push(char);
     }
+    
     else if (closingBrackets.includes(char)) {
+    
       if (stack.length === 0) { //if we have a closing bracket but nothing in our stack
         return false
       }
+      
       if (stack[stack.length - 1] === matchingBrackets[char]) { //if the last (most recent) bracket in the stack matches the opening bracket we're looking for
         stack.pop();
       } else {
