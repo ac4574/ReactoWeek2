@@ -1,5 +1,6 @@
 # ReactoWeek2
 
+# Balanced Brackets
 # Prompt
 
 Write a function that determines whether an input string has balanced brackets.
@@ -16,6 +17,12 @@ hasBalancedBrackets('({)}'); // false
 hasBalancedBrackets('({[]})'); // true
 hasBalancedBrackets('text ( is allowed ){rwwrwrrww [] ()}'); // true
 ```
+
+# Hints
+
+- If they struggle with an approach to get the brackets:
+   - Consider hinting at iterating through the whole string character by character checking for brackets. It may seem inefficient, but is actually still O(n)!
+- Consider hinting at using a stack and how the Last-In-First-Out property could be of use.
 
 # Solutions
 
